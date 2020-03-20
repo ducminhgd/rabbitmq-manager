@@ -14,7 +14,7 @@ Requires:
 
 ## Get MQ declarations
 
-
+1. Run `pipenv run python get_declarations.py`
 
 ## Declare and binding
 
