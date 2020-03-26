@@ -196,3 +196,30 @@ def dump_bindings(bindings: typing.List[typing.Dict], file_path: str) -> bool:
         return True
     logger.info(f'[BEGIN] Dump bindings to {file_path} | Failed')
     return False
+
+def delete_exchanges(api_url: str, vhost: str, http_auth: typing.Dict, exchanges: typing.List[str]):
+    """Delete exchanges via REST API
+
+    :params: api_url API url
+    :params: vhost Virtual host
+    :params: http_auth HTTP Authentication information
+    :params: exchanges to be deleted
+    """
+    logger.info(f'[BEGIN] Delete exchanges from {api_url} | virtual host: {vhost}')
+    for ex in exchanges:
+        response = requests.delete(f'{api_url}/exchanges/{vhost}/{ex}', auth=(http_auth['username'], http_auth['password']))
+        logger.info(f' - {ex}: {response.status_code}')
+
+def delete_queues(api_url: str, vhost: str, http_auth: typing.Dict, queues: typing.List[str]):
+    """Delete queues via REST API
+
+    :params: api_url API url
+    :params: vhost Virtual host
+    :params: http_auth HTTP Authentication information
+    :params: queues to be deleted
+    """
+    logger.info(f'[BEGIN] Delete queues from {api_url} | virtual host: {vhost}')
+    for queue in queues:
+        response = requests.delete(f'{api_url}/queues/{vhost}/{queue}', auth=(http_auth['username'], http_auth['password']))
+        logger.info(f' - {queue}: {response.status_code}')
+    
